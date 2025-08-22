@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurai Yoru - 香港Project Sekai翻跳團體</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 40%, #2d1b45 70%, #0a0a1a 100%);
+            color: #e0e0ff;
+            font-family: 'Noto Sans HK', 'Microsoft JhengHei', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 华丽渐变背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(178, 138, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 168, 254, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(100, 80, 255, 0.1) 0%, transparent 40%);
+            z-index: -3;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        /* 星空效果 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0; transform: scale(0.2); }
+            50% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.2); }
+        }
+        
+        /* 动态光晕效果 */
+        .glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(178, 138, 255, 0.2) 0%, transparent 70%);
+            filter: blur(40px);
+            z-index: -1;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .glow:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 168, 254, 0.15) 0%, transparent 70%);
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+        
+        .glow:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(100, 80, 255, 0.15) 0%, transparent 70%);
+            animation-delay: 5s;
+            animation-duration: 20s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, 30px) scale(1.1); }
+            50% { transform: translate(0, 60px) scale(1); }
+            75% { transform: translate(-40px, 30px) scale(0.9); }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #b28aff, #ffa8fe, #b28aff, transparent);
+        }
+        
+        .title-line {
+            display: block;
+            line-height: 1.2;
+            text-shadow: 0 0 20px rgba(178, 138, 255, 0.8);
+        }
+        
+        .title-line-1 {
+            font-size: 4.5rem;
+            color: #b28aff;
+            margin-bottom: 0;
+            font-family: 'Noto Serif JP', serif;
+            letter-spacing: 2px;
+        }
+        
+        .title-line-2 {
+            font-size: 3.5rem;
+            margin: 15px 0;
+        }
+        
+        .title-line-3 {
+            font-size: 4.5rem;
+            color: #b28aff;
+            font-family: 'Noto Serif JP', serif;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            color: #ffa8fe;
+            font-size: 1.5em;
+            font-style: italic;
+            margin: 40px 0 20px;
+            text-shadow: 0 0 15px rgba(255, 168, 254, 0.7);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .content {
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(20, 25, 50, 0.3);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(178, 138, 255, 0.2);
+        }
+        
+        .content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(178, 138, 255, 0.1) 50%, transparent 100%);
+            transform: translateX(-100%);
+            animation: shimmer 10s infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .content p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .performance {
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            position: relative;
+            background: rgba(40, 30, 80, 0.3);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(178, 138, 255, 0.2);
+        }
+        
+        .performance h2 {
+            color: #ffa8fe;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            text-shadow: 0 0 10px rgba(255, 168, 254, 0.7);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0 20px;
+        }
+        
+        .performance h2::before,
+        .performance h2::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffa8fe);
+        }
+        
+        .performance h2::before {
+            right: 100%;
+        }
+        
+        .performance h2::after {
+            left: 100%;
+            background: linear-gradient(90deg, #ffa8fe, transparent);
+        }
+        
+        .song {
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            background: rgba(10, 15, 35, 0.4);
+            border-left: 3px solid #ffa8fe;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .song::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .song:hover::before {
+            left: 100%;
+        }
+        
+        .song:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(255, 168, 254, 0.3);
+            background: rgba(20, 25, 50, 0.5);
+        }
+        
+        .song strong {
+            color: #b28aff;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px rgba(178, 138, 255, 0.5);
+        }
+        
+        .song .unit {
+            color: #ffa8fe;
+            font-style: italic;
+            font-size: 1em;
+            background: rgba(255, 168, 254, 0.1);
+            padding: 5px 15px;
+            border-radius: 15px;
+        }
+        
+        .performance > p {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.1em;
+        }
+        
+        .social {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .social a {
+            color: #b28aff;
+            text-decoration: none;
+            font-size: 1.3em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 25px;
+            border: 1px solid rgba(178, 138, 255, 0.5);
+            border-radius: 30px;
+            background: rgba(178, 138, 255, 0.1);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(178, 138, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .social a:hover::before {
+            left: 100%;
+        }
+        
+        .social a:hover {
+            background: rgba(178, 138, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(178, 138, 255, 0.4);
+        }
+        
+        .social i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1em;
+            color: #8888cc;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8888cc, transparent);
+        }
+        
+        /* 音乐符号动画 */
+        .music-note {
+            position: absolute;
+            color: rgba(178, 138, 255, 0.7);
+            font-size: 24px;
+            opacity: 0;
+            animation: musicFloat 15s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes musicFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title-line-1, .title-line-3 {
+                font-size: 3rem;
+            }
+            
+            .title-line-2 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 25px;
+                margin: 20px auto;
+            }
+            
+            .song {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 动态光晕 -->
+    <div class="glow"></div>
+    <div class="glow"></div>
+    
+    <!-- 星空背景 -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- 音乐符号 -->
+    <div id="music-notes"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="title-line title-line-1">Kurai</span>
+                <span class="title-line title-line-2">✦</span>
+                <span class="title-line title-line-3">Yoru</span>
+            </h1>
+            <div class="subtitle">暗夜之中，以舞燃光</div>
+        </div>
+        
+        <div class="content">
+            <p>我們是「Kurai Yoru（暗い夜）」香港Project Sekai翻跳團體。</p>
+            <p>暗夜之中，以舞燃光，寓意「在寂靜的夜晚，孕育一點星光」。我們以暗夜為幕，以舞蹈為光，編織屬於大家的舞台篇章。</p>
+        </div>
+        
+        <div class="performance">
+            <h2>今次演出曲目</h2>
+            <div class="song">
+                <strong>《神っぽいな》</strong>
+                <span class="unit">25時、ナイトコードで。</span>
+            </div>
+            <div class="song">
+                <strong>《ビターチョコデコレーション》</strong>
+                <span class="unit">25時、ナイトコードで。</span>
+            </div>
+            <div class="song">
+                <strong>《ザムザ》</strong>
+                <span class="unit">25時、ナイトコードで。</span>
+            </div>
+            <p>以三首暗夜詩篇，為寂靜的夜晚點亮絢爛的星光✦</p>
+        </div>
+        
+        <div class="social">
+            <a href="https://www.instagram.com/kurai_yoru_official/" target="_blank">
+                <i class="fab fa-instagram"></i>Instagram @kurai_yoru_official
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>✦ 黑暗中相遇，星光下共舞 ✦</p>
+        </div>
+    </div>
+    
+    <script>
+        // 创建星空
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const starsCount = 150;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // 随机位置和大小
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const size = Math.random() * 3;
+                const delay = Math.random() * 5;
+                
+                star.style.left = `${posX}%`;
+                star.style.top = `${posY}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                
+                stars.appendChild(star);
+            }
+        }
+        
+        // 创建音乐符号动画
+        function createMusicNotes() {
+            const container = document.getElementById('music-notes');
+            const notes = ['♩', '♪', '♫', '♬', '🎵', '🎶'];
+            const noteCount = 20;
+            
+            for (let i = 0; i < noteCount; i++) {
+                const note = document.createElement('div');
+                note.classList.add('music-note');
+                note.textContent = notes[Math.floor(Math.random() * notes.length)];
+                
+                // 随机位置和动画延迟
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = 10 + Math.random() * 10;
+                
+                note.style.left = `${posX}%`;
+                note.style.animationDelay = `${delay}s`;
+                note.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(note);
+            }
+        }
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            createMusicNotes();
+        });
+    </script>
+</body>
+</html>
